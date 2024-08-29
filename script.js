@@ -14,6 +14,15 @@ function getComputerChoice() {
   }
 }
 
-let choice = getComputerChoice();
+function getHumanChoice() {
+     let userChoice = +prompt('Enter choice(1-3)','');
+     return userChoice 
 
-console.log(choice);
+}
+
+let computerChoice = getComputerChoice();
+console.log('Computer choice: ', computerChoice);
+
+let userChoice = getHumanChoice();
+console.log('User choice: ', userChoice);
+
