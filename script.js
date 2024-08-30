@@ -17,22 +17,20 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-     let userChoice = +prompt('Enter choice(1-3)','');
-     switch( userChoice ) {
-        case 1:
-          return 'rock';
-        case 2:
-          return 'paper';
-        case 3:
-          return 'scissors';
-        default:
-          return  'invalid choice'; 
-     }     
+     let userChoice = prompt('Enter choice(rock, paper, scissors)','');
+     return userChoice;     
 }
 
-let computerChoice = getComputerChoice();
-console.log('Computer choice: ', computerChoice);
+let computer_choice; 
+let user_choice;
 
-let userChoice = getHumanChoice();
-console.log('User choice: ', userChoice, typeof userChoice);
+for(let j = 1; j <= 5; j++) {
+  computer_choice = getComputerChoice();
+  user_choice = getHumanChoice();
+  console.log('computer choice: ', computer_choice, '    ',
+    'user choice: ', user_choice
+   );  
+}
+
+console.log('program finished, use reload to run again');
 
