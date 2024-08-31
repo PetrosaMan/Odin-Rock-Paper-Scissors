@@ -1,10 +1,10 @@
 /* Project: Rock Paper Scissors */
 
-'use strict'
+"use strict";
 
 function getComputerChoice() {
-  let randomNumber = Math.floor(Math.random() * 3 + 1);
-  switch (randomNumber) {
+  let computer_choice = Math.floor(Math.random() * 3 + 1);
+  switch (computer_choice) {
     case 1:
       return "rock";
     case 2:
@@ -17,20 +17,41 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-     let userChoice = prompt('Enter choice(rock, paper, scissors)','');
-     return userChoice;     
+  let human_choice = prompt("Enter choice(rock, paper, scissors)", "");
+  return human_choice;
 }
 
-let computer_choice; 
-let user_choice;
+function playRound(humanChoice, computerChoice) {
+  let humanWins = 0;
+  let computerWins = 0;
+  let draw = 0;
+  humanChoice = humanChoice.toLowerCase();
+  if (
+    (computerSelection === "rock" && humanSelection === "paper") ||
+    (computerSelection === "paper" && humanSelection === "scissors") ||
+    (computerSelection === "scissors" && humanSelection === "rock")
+  ) {
+    ++humanWins;
 
-for(let j = 1; j <= 5; j++) {
-  computer_choice = getComputerChoice();
-  user_choice = getHumanChoice();
-  console.log('computer choice: ', computer_choice, '    ',
-    'user choice: ', user_choice
-   );  
+  } else if (computerSelection === humanSelection) {
+    ++draw;
+  } else {
+    ++computerWins;
+  }
+  console.log('human wins ', humanWins, ' computer wins ', computerWins, ' draw ', draw );
 }
 
-console.log('program finished, use reload to run again');
+// declare global scope variables:
+let humanScore = 0;
+let computerScore = 0;
 
+// anonymous functions
+let computerSelection = getComputerChoice();
+let humanSelection = getHumanChoice();
+
+console.log("human selection: ", humanSelection);
+console.log("computer selection: ", computerSelection);
+
+playRound(humanSelection, computerSelection);
+
+console.log("program finished, use reload to run again");
