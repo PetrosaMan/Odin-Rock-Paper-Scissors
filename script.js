@@ -2,6 +2,11 @@
 
 "use strict";
 
+// declare global scope variables:
+let humanScore = 0;
+let computerScore = 0;
+let draws = 0;
+
 function getComputerChoice() {
   let computer_choice = Math.floor(Math.random() * 3 + 1);
   switch (computer_choice) {
@@ -18,40 +23,58 @@ function getComputerChoice() {
 
 function getHumanChoice() {
   let human_choice = prompt("Enter choice(rock, paper, scissors)", "");
+  human_choice = human_choice.toLowerCase();
   return human_choice;
 }
 
-function playRound(humanChoice, computerChoice) {
-  let humanWins = 0;
-  let computerWins = 0;
-  let draw = 0;
-  humanChoice = humanChoice.toLowerCase();
+function getWinner(computerChoice, humanChoice) {
   if (
-    (computerSelection === "rock" && humanSelection === "paper") ||
-    (computerSelection === "paper" && humanSelection === "scissors") ||
-    (computerSelection === "scissors" && humanSelection === "rock")
+    (computerChoice === "rock" && humanChoice === "paper") ||
+    (computerChoice === "paper" && humanChoice === "scissors") ||
+    (computerChoice === "scissors" && humanChoice === "rock")
   ) {
-    ++humanWins;
-
-  } else if (computerSelection === humanSelection) {
-    ++draw;
+    return "humanWins";
+  } else if (computerChoice === humanChoice) {
+    return "draw";
   } else {
-    ++computerWins;
+    return "computerWins";
   }
-  console.log('human wins ', humanWins, ' computer wins ', computerWins, ' draw ', draw );
 }
 
-// declare global scope variables:
-let humanScore = 0;
-let computerScore = 0;
+function playGame() {
+  function playRound(humanChoice, computerChoice) {
+    let humanWins = 0;
+    let computerWins = 0;
+    let draws = 0;
 
-// anonymous functions
-let computerSelection = getComputerChoice();
-let humanSelection = getHumanChoice();
+    const winner = getWinner(computerChoice, humanChoice);
+    if (winner === "humanWins") {
+      ++humanScore;
+      console.log("you win, computer lose");
+    } else if (winner === "computerWins") {
+      ++computerScore;
+      console.log("computer wins, you lose");
+    } else {
+      ++draws
+      console.log("its a draw, nobody wins", winner);
+    }
+  }
+  const humanChoice = getHumanChoice();
+  const computerChoice = getComputerChoice();
+  playRound(humanChoice, computerChoice);
+}
 
-console.log("human selection: ", humanSelection);
-console.log("computer selection: ", computerSelection);
+function printScores() {
+  console.log(`players score: ${humanScore}`);
+  console.log(`computer score: ${computerScore}`);
+  console.log(`drawn games: ${draws}`);
 
-playRound(humanSelection, computerSelection);
+}
 
-console.log("program finished, use reload to run again");
+for (let j = 1; j <= 3; j++) {
+  playGame();
+}
+
+printScores();
+
+console.log("** Game Over **, reload to play again");
