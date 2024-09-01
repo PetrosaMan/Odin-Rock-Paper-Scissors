@@ -28,6 +28,9 @@ function getHumanChoice() {
 }
 
 function getWinner(computerChoice, humanChoice) {
+  // Check all possible results for player winning and if
+  // a result is a draw. Then what remains must be 
+  // computer wins
   if (
     (computerChoice === "rock" && humanChoice === "paper") ||
     (computerChoice === "paper" && humanChoice === "scissors") ||
