@@ -79,7 +79,7 @@ let draws = 0;
 ```	
 `function getComputerChoice() {}`
 
-`function getHumanChoice() {}
+`function getHumanChoice() {}`
 
 
 `function getWinner(computerChoice, humanChoice) {}`
