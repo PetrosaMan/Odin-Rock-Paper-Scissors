@@ -42,21 +42,17 @@ function getWinner(computerChoice, humanChoice) {
 }
 
 function playGame() {
-  function playRound(humanChoice, computerChoice) {
-    let humanWins = 0;
-    let computerWins = 0;
-    let draws = 0;
-
+  function playRound(humanChoice, computerChoice) { 
     const winner = getWinner(computerChoice, humanChoice);
     if (winner === "humanWins") {
       ++humanScore;
-      console.log("you win, computer lose");
+      console.log("you win, computer loses");
     } else if (winner === "computerWins") {
       ++computerScore;
       console.log("computer wins, you lose");
     } else {
       ++draws
-      console.log("its a draw, nobody wins", winner);
+      console.log("its a draw, nobody wins");
     }
   }
   const humanChoice = getHumanChoice();
@@ -64,17 +60,28 @@ function playGame() {
   playRound(humanChoice, computerChoice);
 }
 
+function printGameWinner() {
+  if(humanScore > computerScore) {
+      console.log('player wins game with: ', humanScore, ' wins');
+  } else if(computerScore > humanScore) {
+    console.log('computer wins game with: ', computerScore, ' wins');
+  } else if (computerScore === humanScore) {
+    console.log('game is a draw with ', humanScore, ' wins each');
+  }
+}
+
 function printScores() {
   console.log(`players score: ${humanScore}`);
   console.log(`computer score: ${computerScore}`);
   console.log(`drawn games: ${draws}`);
-
+  printGameWinner();
 }
 
-for (let j = 1; j <= 3; j++) {
-  playGame();
+console.log('## Rock-Paper-Scissors game ##');
+for (let j = 0; j < 5; j++) {
+  console.log('plays remaining', 5 - j);
+  playGame();  
 }
 
 printScores();
-
-console.log("** Game Over **, reload to play again");
+console.log("\n** Game Over **, reload to play again");
