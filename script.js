@@ -80,11 +80,7 @@ function printScores() {
   printGameWinner();
 }
 
-console.log('## Rock-Paper-Scissors game ##');
-for (let j = 0; j < 5; j++) {
-  console.log('plays remaining', 5 - j);
-  playGame();  
-}
+
 
 printScores();
-console.log("\n** Game Over **, reload to play again");
+//console.log("\n** Game Over **, reload to play again");
