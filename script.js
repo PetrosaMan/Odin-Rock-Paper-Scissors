@@ -1,8 +1,11 @@
 /* Project: Rock Paper Scissors */
 
-"use strict";
+//"use strict";
 
 let totalRounds = 0;
+let humanScore = 0;
+let computerScore = 0;
+let draws = 0;
 
 function getComputerChoice() {
   let computerChoice = Math.floor(Math.random() * 3 + 1);
@@ -33,46 +36,64 @@ function getWinner(humanChoice, computerChoice) {
   } else {
     return "computerWins";
   }
+}  
+
+function updateRunningScore( humanScore, computerScore) { 
+   const scores = document.querySelector('#gameResult');
+   scores.textContent = 'human score: ' + humanScore + ', ' + ' computer score: ' + computerScore;
+   return;
+};  
+
+function showGameWinner(humanScore, computerScore) {  
+  let winner;
+  if(humanScore > computerScore) {
+     winner = 'Human wins';
+  } else {
+     winner = 'Computer wins';
+  }  
+  const scores = document.querySelector('#gameResult');
+  scores.textContent = winner +' ' +  'human score ' + humanScore + " computer score " + computerScore;
+  return;
 }
 
-function playGame(humanChoice, computerChoice) {
-    let humanScore = 0;
-    let computerScore = 0;
-    let draws = 0;     
 
-    function playRound(humanChoice, computerChoice) {
-      console.log('playRound function called');
+function playRound(humanChoice) {      
+    
+    const computerChoice = getComputerChoice();
 
-      const winner = getWinner(computerChoice, humanChoice);
-      if (winner === "humanWins") {
-        ++humanScore;
-        console.log("you win, computer loses");
-      } else if (winner === "computerWins") {
-        ++computerScore;
-        console.log("computer wins, you lose");
+    const winner = getWinner(humanChoice, computerChoice);
+      
+    if (winner === "humanWins") {
+        ++humanScore;        
+    } else if (winner === "computerWins") {
+        ++computerScore;        
+    } else {
+        ++draws;        
+    }            
+      totalRounds++;       
+      
+      if(humanScore === 5 || computerScore === 5) {
+         showGameWinner(humanScore, computerScore);
+         const buttons = document.querySelectorAll("button");                 
+         
+         buttons.forEach((button) => {
+            button.removeEventListener('click', handleClick);
+         });
       } else {
-        ++draws
-        console.log("its a draw, nobody wins");
-      }      
-      //console.log('humanScore:', humanScore);
-      //console.log('computerScore:', computerScore);
-      //console.log('draws: ', draws);
-      console.log('total rounds: ', totalRounds);
-      totalRounds++;      
-    }     
+           updateRunningScore( humanScore, computerScore);
+      }     
+    }  
+    
+function handleClick(event) {
+    const humanChoice = event.target.textContent;
+    playRound(humanChoice);
+}
 
-  const buttons = document.querySelectorAll("button");
-
-  buttons.forEach((button) => {
-  // and for each one add a 'click' listener
-    button.addEventListener("click", () => {     
-      const humanChoice = button.textContent;
-      const computerChoice = getComputerChoice();    
-      playRound(humanChoice, computerChoice);
-    });
+function playGame() {
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach((button) => {
+    button.addEventListener('click', handleClick);
   });
 }
 
-if (totalRounds <= 5) {
-  playGame();
-} 
+playGame();
