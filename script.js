@@ -38,21 +38,21 @@ function getWinner(humanChoice, computerChoice) {
   }
 }  
 
-function updateRunningScore( humanScore, computerScore) { 
+function updateRunningScore( humanScore, computerScore, draws) { 
    const scores = document.querySelector('#gameResult');
-   scores.textContent = 'human score: ' + humanScore + ', ' + ' computer score: ' + computerScore;
+   scores.textContent = 'player score: ' + humanScore + ', ' + ' computer score: ' + computerScore + ' draws: ' + draws;
    return;
 };  
 
-function showGameWinner(humanScore, computerScore) {  
+function showGameWinner(humanScore, computerScore, draws) {  
   let winner;
   if(humanScore > computerScore) {
-     winner = 'Human wins';
+     winner = 'Player wins';
   } else {
      winner = 'Computer wins';
   }  
   const scores = document.querySelector('#gameResult');
-  scores.textContent = winner +' ' +  'human score ' + humanScore + " computer score " + computerScore;
+  scores.textContent = winner +': ' +  'player score ' + humanScore +',' + " computer score " + computerScore + ',' + ' draws ' + draws;
   return;
 }
 
@@ -73,14 +73,14 @@ function playRound(humanChoice) {
       totalRounds++;       
       
       if(humanScore === 5 || computerScore === 5) {
-         showGameWinner(humanScore, computerScore);
+         showGameWinner(humanScore, computerScore, draws);
          const buttons = document.querySelectorAll("button");                 
          
          buttons.forEach((button) => {
             button.removeEventListener('click', handleClick);
          });
       } else {
-           updateRunningScore( humanScore, computerScore);
+           updateRunningScore( humanScore, computerScore, draws);
       }     
     }  
     
