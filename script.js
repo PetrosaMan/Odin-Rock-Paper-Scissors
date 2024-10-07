@@ -5,7 +5,7 @@
 let totalRounds = 0;
 let humanScore = 0;
 let computerScore = 0;
-let draws = 0;
+let ties = 0;
 
 function getComputerChoice() {
   let computerChoice = Math.floor(Math.random() * 3 + 1);
@@ -23,7 +23,7 @@ function getComputerChoice() {
 
 function getWinner(humanChoice, computerChoice) {
   // Check all possible results for player winning and if
-  // a result is a draw. Then what remains must be 
+  // a result is a tie. Then what remains must be 
   // computer wins
   if (
     (computerChoice === "rock" && humanChoice === "paper") ||
@@ -32,19 +32,19 @@ function getWinner(humanChoice, computerChoice) {
   ) {
     return "humanWins";
   } else if (computerChoice === humanChoice) {
-    return "draw";
+    return "tie";
   } else {
     return "computerWins";
   }
 }  
 
-function updateRunningScore( humanScore, computerScore, draws) { 
+function updateRunningScore( humanScore, computerScore, ties) { 
    const scores = document.querySelector('#gameResult');
-   scores.textContent = 'player score: ' + humanScore + ', ' + ' computer score: ' + computerScore + ' draws: ' + draws;
+   scores.textContent = 'player score: ' + humanScore + ', ' + ' computer score: ' + computerScore + ' ties: ' + ties;
    return;
 };  
 
-function showGameWinner(humanScore, computerScore, draws) {  
+function showGameWinner(humanScore, computerScore, ties) {  
   let winner;
   if(humanScore > computerScore) {
      winner = 'Player wins';
@@ -52,7 +52,7 @@ function showGameWinner(humanScore, computerScore, draws) {
      winner = 'Computer wins';
   }  
   const scores = document.querySelector('#gameResult');
-  scores.textContent = winner +': ' +  'player score ' + humanScore +',' + " computer score " + computerScore + ',' + ' draws ' + draws;
+  scores.textContent = winner +': ' +  'player score ' + humanScore +',' + " computer score " + computerScore + ',' + ' ties ' + ties;
   return;
 }
 
@@ -68,19 +68,19 @@ function playRound(humanChoice) {
     } else if (winner === "computerWins") {
         ++computerScore;        
     } else {
-        ++draws;        
+        ++ties;        
     }            
       totalRounds++;       
       
       if(humanScore === 5 || computerScore === 5) {
-         showGameWinner(humanScore, computerScore, draws);
+         showGameWinner(humanScore, computerScore, ties);
          const buttons = document.querySelectorAll("button");                 
          
          buttons.forEach((button) => {
             button.removeEventListener('click', handleClick);
          });
       } else {
-           updateRunningScore( humanScore, computerScore, draws);
+           updateRunningScore( humanScore, computerScore, ties);
       }     
     }  
     
